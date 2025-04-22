@@ -8,22 +8,93 @@
 </head>
 
 <body>
-
     <!-- Navbar Start -->
     <nav class="navbar">
         <div class="navbar-left">
-            <h1>Tran Xuan Dan</h1>
-            <p>Game Developer</p>
+            <h1 class="name">Tran Xuan Dan</h1>
+            <p class="title">Game Developer</p>
         </div>
         <div class="navbar-right">
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#experience">Experience</a>
-            <a href="#contact">Contact</a>
+            <a href="#about" class="active">ABOUT</a>
+            <a href="#portfolio">PORTFOLIO</a>
+            <a href="#resume">RESUME</a>
+            <a href="#contact">CONTACT</a>
         </div>
     </nav>
     <!-- Navbar End -->
 
+    <!-- Hero Section Start -->
+    <section class="hero" id="about">
+        <div class="hero-left">
+            <img src="assets/images/avatar.jpg" alt="Avatar">
+        </div>
+        <div class="hero-right">
+            <h2>About Me</h2>
+            <p>
+                Hi! I'm Tran Xuan Dan, a passionate Game Developer with 5 years of experience.<br>
+                I specialize in creating casual, hybrid-casual, NFT, and gambling games using Unity, Unreal Engine 5,
+                and Cocos Creator.<br>
+                I love building fun and meaningful gaming experiences!
+            </p>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Projects Section Start -->
+    <section class="projects" id="portfolio">
+        <h2>My Projects</h2>
+        <div class="projects-gallery">
+            <div class="project-item">
+                <img src="assets/images/game1.jpg" alt="Game 1">
+                <p>Game Title 1</p>
+            </div>
+            <div class="project-item">
+                <img src="assets/images/game2.jpg" alt="Game 2">
+                <p>Game Title 2</p>
+            </div>
+            <div class="project-item">
+                <img src="assets/images/game3.jpg" alt="Game 3">
+                <p>Game Title 3</p>
+            </div>
+            <div class="project-item">
+                <img src="assets/images/game3.jpg" alt="Game 4">
+                <p>Game Title 4</p>
+            </div>
+            <div class="project-item">
+                <img src="assets/images/game3.jpg" alt="Game 5">
+                <p>Game Title 5</p>
+            </div>
+            <div class="project-item">
+                <img src="assets/images/game3.jpg" alt="Game 6">
+                <p>Game Title 6</p>
+            </div>
+        </div>
+    </section>
+    <!-- Projects Section End -->
+
+
+    <script>
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".navbar-right a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop - 150;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").includes(current)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
