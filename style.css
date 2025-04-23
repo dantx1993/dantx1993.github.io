@@ -207,3 +207,198 @@ body {
     font-weight: bold;
     font-size: 16px;
 }
+
+.project-title {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    min-height: 40px;
+    /* 👈 chỉnh tùy độ dài title trung bình */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.project-engine {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+.project-genre {
+    font-size: 14px;
+    color: #facc15;
+    /* Vàng nhẹ nổi bật */
+    margin-top: 4px;
+}
+
+/* Resume Section */
+.resume {
+    padding: 80px 60px;
+    background-color: #121418;
+    color: #ffffff;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.resume h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.resume-item {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 60px;
+}
+
+.resume-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    background-color: #00ffd0;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.resume-item::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 5px;
+    width: 2px;
+    height: calc(100% - 16px);
+    background-color: #00ffd0;
+    z-index: 0;
+}
+
+.resume-item h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.resume-item .type {
+    font-size: 14px;
+    color: #9ca3af;
+    padding-top: 5px;
+    display: block;
+}
+
+.resume-item .duration {
+    font-size: 14px;
+    color: #9ca3af;
+    padding-top: 5px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.resume-item p {
+    margin: 6px 0;
+    line-height: 1.6;
+    color: #d1d5db;
+}
+
+.resume-download {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.resume-download a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background-color: #00ffd0;
+  color: #121418;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.resume-download a:hover {
+  background-color: #00c2a8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 255, 208, 0.3);
+}
+
+.resume-download i {
+  font-size: 18px;
+}
+
+/* Resume Section */
+.contact-footer {
+    text-align: center;
+    /* padding: 60px 0 40px; */
+    padding-bottom: 40px;
+    background-color: #121418;
+}
+
+.contact-footer h2 {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.social-icons a img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: brightness(0.8) grayscale(100%);
+}
+
+.social-icons a:hover img {
+    transform: scale(1.2);
+    filter: brightness(1.2) grayscale(0%);
+}
+
+.contact {
+    padding: 20px 20px;
+    background-color: #121418;
+    color: #ffffff;
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.contact-info {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #d1d5db;
+}
+
+.contact-info a {
+    color: #00ffd0;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+.copy-email {
+    color: #00ffd0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.copy-email:hover {
+    color: #00c2a8;
+    text-decoration: underline;
+}
