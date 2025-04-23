@@ -1,25 +1,75 @@
-const sheetURL = 'https://docs.google.com/spreadsheets/d/2PACX-1vRi2Uj_P_OakaICp-PNz5wcAb4A3emJp59kb3TYFCxqx_A012wK3179JgwyboLPcMC6K6xY4dIK_CTm/pubhtml'; // Thay YOUR_SHEET_ID
-
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("https://docs.google.com/spreadsheets/d/1lVXyVclrvgyTuZIN98NVBBQu2vNEAsmIbBTBRS5mwOI/pub?gid=0&single=true&output=csv")
-    .then(response => response.text())
-    .then(text => {
-      const rows = text.trim().split("\n").map(row => row.split(","));
-      const container = document.querySelector('.projects-gallery');
-      const headers = rows[0];
-
-      for (let i = 1; i < rows.length; i++) {
-        const row = rows[i];
-        const [title, genre, engine, icon] = row;
-
-        const html = `
-                    <div class="project-item">
-                        <img src="assets/game-icons/${icon}.png" alt="${title}">
-                        <p class="project-title">${title}</p>
-                        <p class="project-genre">${genre}</p>
-                        <p class="project-engine">${engine}</p>
-                    </div>`;
-        container.innerHTML += html;
-      }
-    });
+    fetch("assets/data/projects.csv")
+        .then(res => res.text())
+        .then(csvText => {
+            const data = parseCSV(csvText);
+            renderProjects(data);
+        })
+        .catch(err => console.error("Lỗi tải CSV:", err));
 });
+
+function parseCSV(csvText) {
+    const lines = csvText.trim().split("\n");
+
+    const headers = lines[0].split(",").map(h => h.trim());
+
+    const data = lines.slice(1).map(line => {
+        const values = [];
+        let value = '';
+        let inQuotes = false;
+
+        for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            if (char === '"' && line[i + 1] === '"') {
+                value += '"';
+                i++; // skip the escaped quote
+            } else if (char === '"') {
+                inQuotes = !inQuotes;
+            } else if (char === ',' && !inQuotes) {
+                values.push(value.trim());
+                value = '';
+            } else {
+                value += char;
+            }
+        }
+        values.push(value.trim());
+
+        const obj = {};
+        headers.forEach((header, i) => {
+            obj[header] = values[i]?.replace(/^"|"$/g, '').trim(); // remove leading/trailing quotes
+        });
+        return obj;
+    });
+
+    return data;
+}
+
+function parseCSVLine(line) {
+    const regex = /("([^"]|"")*"|[^",\s]+)(?=\s*,|\s*$)/g;
+    const matches = [...line.matchAll(regex)].map(match => {
+        let val = match[0].trim();
+        if (val.startsWith('"') && val.endsWith('"')) {
+            val = val.slice(1, -1).replace(/""/g, '"'); // Escape dấu "
+        }
+        return val;
+    });
+    return matches;
+}
+
+function renderProjects(projects) {
+    const container = document.querySelector(".projects-gallery");
+    if (!container) return;
+
+    container.innerHTML = ""; // Xóa cũ
+
+    projects.forEach(project => {
+        container.innerHTML += `
+      <div class="project-item">
+        <img src="assets/game-icons/${project.Icon}.png" alt="${project.Title}">
+        <p class="project-title">${project.Title}</p>
+        <p class="project-genre">${project.Genre}</p>
+        <p class="project-engine">${project.Engine}</p>
+      </div>
+    `;
+    });
+}

@@ -213,11 +213,11 @@ body {
     font-weight: bold;
     font-size: 16px;
     min-height: 40px;
-    /* 👈 chỉnh tùy độ dài title trung bình */
-    display: flex;
-    align-items: center;
-    justify-content: center;
     text-align: center;
+    word-break: break-word;
+    /* Tự ngắt từ nếu quá dài */
+    white-space: normal;
+    /* Cho phép xuống dòng */
 }
 
 .project-engine {
