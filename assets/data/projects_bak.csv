@@ -21,6 +21,6 @@ STT,Title,Genre,Engine,Icon
 20,Sodoku,Puzzle,Unity,sodoku
 21,Airspeeder,Racing,UE5,airspeeder
 22,ZeroPutt,Sports Game,Unity,zero_putt
-23,JJSDK,Native Plugin,"Unity, UE5",jjsdk
+23,JJSDK,Native Plugin,"""Unity, UE5""",jjsdk
 24,Dancing Road,Music Game,Unity,dancing_road
 25,Vietnam casino game,Gambling,Cocos Creator,vietnam_casino_game
