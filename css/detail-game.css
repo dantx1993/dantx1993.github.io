@@ -1,0 +1,243 @@
+/* Reset & base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #121418;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    padding: 80px 20px;
+    min-height: 100vh;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-title h1 {
+    font-size: 36px;
+    color: #ffffff;
+}
+
+/* Container */
+.detail-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px;
+}
+
+/* Header layout */
+.detail-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.game-icon {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 4px solid #ffffff;
+    background: #333;
+}
+
+.description {
+    flex: 1;
+    min-width: 260px;
+    align-self: flex-start;
+}
+
+.description h2 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.description p {
+    color: #d1d5db;
+    line-height: 1.6;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    background: #2a2d31;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s ease;
+}
+
+.tab-button:hover {
+    background: #3c3f44;
+}
+
+.tab-button.active {
+    background: #00ffd0;
+    color: #121418;
+}
+
+/* Tab content */
+.tab-content {
+    display: none;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    color: #d1d5db;
+    line-height: 1.6;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Carousel with prev/next */
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.carousel-frame {
+    width: 720px;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    border-radius: 10px;
+    border: 2px solid #444;
+    overflow: hidden;
+}
+
+#carouselImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 👈 giữ nguyên tỉ lệ gốc */
+    border-radius: 10px;
+    background-color: #1f2125;
+}
+
+.carousel-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: 10px;
+    user-select: none;
+}
+
+.carousel-btn:hover {
+    transform: scale(1.2);
+}
+
+.back-button {
+    margin-bottom: 24px;
+}
+
+.back-button a {
+    color: #00ffd0;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px 16px;
+    background-color: #1f2125;
+    border: 2px solid #00ffd0;
+    border-radius: 6px;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+}
+
+.back-button a:hover {
+    background-color: #00ffd0;
+    color: #121418;
+}
+
+.video-frame {
+    width: 720px;
+    height: 480px;
+    margin: 0 auto;
+    background: #000;
+    border-radius: 10px;
+    border: 2px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#gameVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+#carouselVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 👈 giữ nguyên tỉ lệ gốc */
+    border-radius: 10px;
+    background: #000;
+}
+
+/* Reference Links */
+#refLinks a {
+    color: #00ffd0;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#refLinks a:hover {
+    text-decoration: underline;
+}
+
+.responsibility-list {
+    padding-left: 24px; /* 👈 Dịch vào bên trong */
+    margin-top: 6px;
+}
+
+.responsibility-list li {
+    margin-bottom: 6px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .detail-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .game-icon {
+        width: 150px;
+        height: 150px;
+    }
+
+    .carousel-frame {
+        width: 100%;
+        height: auto;
+    }
+
+    #carouselImage {
+        max-width: 100%;
+        max-height: 300px;
+    }
+}

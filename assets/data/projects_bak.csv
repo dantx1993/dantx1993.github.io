@@ -1,26 +1,26 @@
-STT,Title,Genre,Engine,Icon
-1,Hole Pocket 3D,Hyper Casual,Unity,hole_pocket
-2,Vihecle Transform Race,Hyper Casual,Unity,vihecle_transform_race
-3,Sort The Jellyball,Hyper Casual,Unity,sort_the_jellyball
-4,Hyper Basketball Shoot,Hyper Casual,Unity,hyper_basketball_shoot
-5,Candy Jars 3D,Hyper Casual,Unity,candyjars3d
-6,Smash Hammer,Hyper Casual,Unity,smash_hammer
-7,Alien Autopsy Sim,Hyper Casual,Unity,alien_autopsy_sim
-8,Color Shooting,Hyper Casual,Unity,color_shooting
-9,Die Cutting Art,Hyper Casual,Unity,die_cutting_art
-10,Marble Pocket 3D,Hyper Casual,Unity,marblepocket3d
-11,Slime Royale,RPG - NFT,Unity,slime_royale
-12,Tici App,Education,Unity,tici_app
-13,Start Verse,RPG - NFT,Unity,start_verse
-14,Habit Hunter,RPG Goal Tracker,Unity,habit_hunter
-15,Miverse,Moba - NFT,Unity,miverse
-16,Meep Labo,Simulation - NFT,Unity,meep_labo
-17,Tobika,Education,Unity,tobika
-18,Neko Mart,Idle Tycoon,Unity,neko_mart
-19,Neko LandLord,Slot Machine,Godot,neko_landlord
-20,Sodoku,Puzzle,Unity,sodoku
-21,Airspeeder,Racing,UE5,airspeeder
-22,ZeroPutt,Sports Game,Unity,zero_putt
-23,JJSDK,Native Plugin,"""Unity, UE5""",jjsdk
-24,Dancing Road,Music Game,Unity,dancing_road
-25,Vietnam casino game,Gambling,Cocos Creator,vietnam_casino_game
+STT,Title,Genre,Engine,Icon,Description,Infomation,References,Image,Video
+1,Hole Pocket 3D,Hyper Casual,Unity,hole_pocket,A casual game where players draw lines to guide a golf ball into a hole.,"<strong>Technology:</strong> Unity Engine, Applovin Ads<br><strong>Time:</strong> 10/2020 - 10/2020<br><strong>Responsibilities:</strong><br>- Contributed to the development of core gameplay and ad flow integration.<br>- Participated in bug fixing and optimization.",https://m.apkpure.com/hole-pocket-3d/jp.co.extreme.game.holepocket3d,8,
+2,Vihecle Transform Race,Hyper Casual,Unity,vihecle_transform_race,A casual game where players choose the appropriate transformation for their vehicle to overcome obstacles,"<strong>Technology:</strong> Unity Engine, Applovin Ads<br><strong>Time:</strong> 05/2021 - 05/2021<br><strong>Responsibilities:</strong><br>- Contributed to the development of core gameplay and ad flow integration.<br>- Participated in bug fixing and optimization.",https://apkcombo.com/vehicle-transform-race/jp.co.extreme.game.vehicletransformrace/,5,
+3,Sort The Jellyball,Hyper Casual,Unity,sort_the_jellyball,A casual game where players dig by drawing paths to guide colored balls into matching shapes.,"<strong>Technology:</strong> Unity Engine, Applovin Ads<br><strong>Time:</strong> 06/2021 - 06/2021<br><strong>Responsibilities:</strong><br>- Participated in the development of core gameplay and ad flow<br>- Assisted in debugging and optimization processes",https://apkcombo.com/sort-the-jellyball/jp.co.extreme.game.sortthejellyball/,6,
+4,Hyper Basketball Shoot,Hyper Casual,Unity,hyper_basketball_shoot,A casual game where players swipe the screen to throw a ball into pre-arranged baskets.,"<strong>Technology:</strong> Unity Engine, Applovin Ads<br><strong>Time:</strong> 06/2021 - 06/2021<br><strong>Responsibilities:</strong><br>- Contributed to feature development in phase 2 of the project<br>- Modified the ad flow and analytics flow<br>- Participated in the bug fixing process",https://apkcombo.com/hyper-basketball-shoot/jp.co.extreme.game.hyperbasketballshoot/,8,
+5,Candy Jars 3D,Hyper Casual,Unity,candyjars3d,A casual game where players draw on the screen to create walls that guide falling candies into the correct candy jars.,"<strong>Technology:</strong> Unity Engine, Applovin Ads<br><strong>Time:</strong> 06/2021 - 06/2021<br><strong>Responsibilities:</strong><br>- Contributed to the development of core gameplay and ad flow<br>- Participated in the bug fixing process",https://apkcombo.com/candy-jars-3d/jp.co.extreme.game.candyjars3d/,5,
+6,Smash Hammer,Hyper Casual,Unity,smash_hammer,,,,,
+7,Alien Autopsy Sim,Hyper Casual,Unity,alien_autopsy_sim,,,,,
+8,Color Shooting,Hyper Casual,Unity,color_shooting,,,,,
+9,Die Cutting Art,Hyper Casual,Unity,die_cutting_art,,,,,
+10,Marble Pocket 3D,Hyper Casual,Unity,marblepocket3d,,,,,
+11,Slime Royale,RPG - NFT,Unity,slime_royale,,,,,
+12,Tici App,Education,Unity,tici_app,,,,,
+13,Start Verse,RPG - NFT,Unity,start_verse,,,,,
+14,Habit Hunter,RPG Goal Tracker,Unity,habit_hunter,,,,,
+15,Miverse,Moba - NFT,Unity,miverse,,,,,
+16,Meep Labo,Simulation - NFT,Unity,meep_labo,,,,,
+17,Tobika,Education,Unity,tobika,,,,,
+18,Neko Mart,Idle Tycoon,Unity,neko_mart,,,,,
+19,Neko LandLord,Slot Machine,Godot,neko_landlord,,,,,
+20,Sodoku,Puzzle,Unity,sodoku,,,,,
+21,Airspeeder,Racing,UE5,airspeeder,,,,,
+22,ZeroPutt,Sports Game,Unity,zero_putt,,,,,
+23,JJSDK,Native Plugin,"Unity, UE5",jjsdk,,,,,
+24,Dancing Road,Music Game,Unity,dancing_road,,,,,
+25,Vietnam casino game,Gambling,Cocos Creator,vietnam_casino_game,,,,,

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Detail</title>
+    <link rel="stylesheet" href="css/detail-game.css" />
+</head>
+
+<body>
+    <div class="page-title">
+        <h1 id="gameTitle">Game Title</h1>
+    </div>
+
+    <div class="detail-container">
+        <div class="detail-header">
+            <img id="gameIcon" class="game-icon" src="" alt="Game Icon" />
+            <div class="description">
+                <p id="gameDescription">Loading description...</p>
+            </div>
+        </div>
+
+        <div class="back-button">
+            <a href="index.html">← Back to Home</a>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="info">Info</button>
+            <button class="tab-button" data-tab="images" id="imagesTab">Images</button>
+            <button class="tab-button" data-tab="videos" id="videosTab">Videos</button>
+            <button class="tab-button" data-tab="reference" id="refTab">Reference</button>
+        </div>
+
+        <div class="tab-content active" id="tab-info">
+            <p id="infoContent">Detailed information about the game...</p>
+        </div>
+
+        <div class="tab-content" id="tab-images">
+            <div class="carousel-wrapper">
+                <button class="carousel-btn" id="prevBtn">&#10094;</button>
+                <div class="carousel-frame">
+                    <img id="carouselImage" src="" alt="Game Screenshot" />
+                </div>
+                <button class="carousel-btn" id="nextBtn">&#10095;</button>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-videos">
+            <div class="carousel-wrapper">
+                <button class="carousel-btn" id="videoPrevBtn">&#10094;</button>
+                <div class="carousel-frame">
+                    <video id="carouselVideo" controls></video>
+                </div>
+                <button class="carousel-btn" id="videoNextBtn">&#10095;</button>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-reference">
+            <div id="refLinks"></div>
+        </div>
+    </div>
+
+    <script src="scripts/renderProjects.js"></script>
+</body>
+
+</html>

@@ -57,19 +57,48 @@ function parseCSVLine(line) {
 }
 
 function renderProjects(projects) {
-    const container = document.querySelector(".projects-gallery");
-    if (!container) return;
+    const featuredContainer = document.querySelector(".featured-gallery");
+    const regularContainer = document.querySelector(".projects-gallery");
+    if (!featuredContainer || !regularContainer) return;
 
-    container.innerHTML = ""; // Xóa cũ
+    featuredContainer.innerHTML = "";
+    regularContainer.innerHTML = "";
 
+    // Lọc và sắp xếp các dự án tiêu biểu
+    const featuredProjects = projects
+        .filter(p => p.IsHighlight && !isNaN(parseInt(p.IsHighlight)))
+        .sort((a, b) => parseInt(a.IsHighlight) - parseInt(b.IsHighlight));
+
+    const regularProjects = projects.filter(p => !p.IsHighlight || parseInt(p.IsHighlight) === 0);
+
+    // Render dự án tiêu biểu
+    featuredProjects.forEach(project => {
+        const item = createProjectItem(project);
+        featuredContainer.appendChild(item);
+    });
+
+    // Render dự án thường
     projects.forEach(project => {
-        container.innerHTML += `
-      <div class="project-item">
-        <img src="assets/game-icons/${project.Icon}.png" alt="${project.Title}">
+        const item = createProjectItem(project);
+        regularContainer.appendChild(item);
+    });
+}
+
+function createProjectItem(project) {
+    const item = document.createElement("div");
+    item.classList.add("project-item");
+
+    item.innerHTML = `
+        <img src="assets/game-icons/${project.Icon}.png" alt="${project.Title}" 
+             onerror="this.onerror=null; this.src='assets/game-icons/none.svg';">
         <p class="project-title">${project.Title}</p>
         <p class="project-genre">${project.Genre}</p>
         <p class="project-engine">${project.Engine}</p>
-      </div>
     `;
+
+    item.addEventListener("click", () => {
+        window.location.href = `game-detail.html?id=${encodeURIComponent(project.Icon)}`;
     });
+
+    return item;
 }
