@@ -24,29 +24,35 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(`https://script.google.com/macros/s/AKfycbzzXfzMTLpLmlnjg1HNLq6zg0WJJ1B9ZXezlwlIylhVXk9NaO8rlq3-Nzvf-HeDrNNE/exec?viewer=${viewer}`)
             .then(res => res.json())
             .then(config => {
-                if (cvButton && config.cv) {
-                    let finalCvLink = config.cv;
+                let finalCvLink = null;
+                if (config.cv) {
+                    finalCvLink = config.cv;
 
-                    // Nếu là link Google Drive dạng view -> convert thành link download
                     const gDriveMatch = finalCvLink.match(/\/file\/d\/([^/]+)\//);
                     if (gDriveMatch) {
                         const fileId = gDriveMatch[1];
                         finalCvLink = `https://drive.google.com/uc?export=download&id=${fileId}`;
                     }
 
-                    cvButton.href = finalCvLink;
-                    if (finalCvLink.startsWith('http')) {
-                        cvButton.removeAttribute('download');
-                    } else {
-                        cvButton.setAttribute('download', '');
-                    }
-                    cvButton.style.display = 'inline-block';
-                    if (loadingIndicator) {
-                        loadingIndicator.style.display = 'none';
+                    if (cvButton) {
+                        cvButton.href = finalCvLink;
+                        if (finalCvLink.startsWith('http')) {
+                            cvButton.removeAttribute('download');
+                        } else {
+                            cvButton.setAttribute('download', '');
+                        }
                     }
                 }
 
-                // Cập nhật highlight
+                // Luôn xử lý hiện/hide UI dù có CV hay không
+                if (cvButton) {
+                    cvButton.style.display = 'inline-block';
+                }
+                if (loadingIndicator) {
+                    loadingIndicator.style.display = 'none';
+                }
+
+                // Xử lý highlight như cũ
                 if (config.highlight) {
                     highlightParam = config.highlight;
                     highlightedIds = highlightParam.split(",");
