@@ -91,12 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function fetchAndRenderProjects(onCompleted) {
     if (cachedProjects) {
-        console.log("cachedProjects != null");
         if (typeof onCompleted === "function") {
             onCompleted(cachedProjects);
         }
     } else {
-        console.log("cachedProjects == null");
         fetch("assets/data/projects.csv")
             .then(res => res.text())
             .then(csvText => {
