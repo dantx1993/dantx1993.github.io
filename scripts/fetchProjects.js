@@ -1,59 +1,148 @@
+import { parseCSV } from './js/csvUtils.js';
+
+const urlParams = new URLSearchParams(window.location.search);
+let highlightParam = urlParams.get("highlight");
+let cvParam = getCVParam(window.location.href);
+let highlightedIds = highlightParam ? highlightParam.split(",") : [];
+let cachedProjects = null;
+
+const viewer = urlParams.get("viewer");
+
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("assets/data/projects.csv")
-        .then(res => res.text())
-        .then(csvText => {
-            const data = parseCSV(csvText);
-            renderProjects(data);
-        })
-        .catch(err => console.error("Lỗi tải CSV:", err));
+    const cvButton = document.getElementById('cvDownloadButton');
+    const loadingIndicator = document.getElementById('cv-loading');
+    if (viewer) {
+        if (cvButton) {
+            cvButton.style.display = 'none';
+        }
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'inline-block';
+        }
+        fetchAndRenderProjects((projects) => {
+            renderRegularProjects(projects);
+        });
+        fetch(`https://script.google.com/macros/s/AKfycbzzXfzMTLpLmlnjg1HNLq6zg0WJJ1B9ZXezlwlIylhVXk9NaO8rlq3-Nzvf-HeDrNNE/exec?viewer=${viewer}`)
+            .then(res => res.json())
+            .then(config => {
+                if (cvButton && config.cv) {
+                    let finalCvLink = config.cv;
+
+                    // Nếu là link Google Drive dạng view -> convert thành link download
+                    const gDriveMatch = finalCvLink.match(/\/file\/d\/([^/]+)\//);
+                    if (gDriveMatch) {
+                        const fileId = gDriveMatch[1];
+                        finalCvLink = `https://drive.google.com/uc?export=download&id=${fileId}`;
+                    }
+
+                    cvButton.href = finalCvLink;
+                    if (finalCvLink.startsWith('http')) {
+                        cvButton.removeAttribute('download');
+                    } else {
+                        cvButton.setAttribute('download', '');
+                    }
+                    cvButton.style.display = 'inline-block';
+                    if (loadingIndicator) {
+                        loadingIndicator.style.display = 'none';
+                    }
+                }
+
+                // Cập nhật highlight
+                if (config.highlight) {
+                    highlightParam = config.highlight;
+                    highlightedIds = highlightParam.split(",");
+                }
+
+                fetchAndRenderProjects((projects) => {
+                    renderFeaturedProjects(projects);
+                });
+            })
+            .catch(err => {
+                console.error("Lỗi khi fetch viewer config:", err);
+                if (cvButton) {
+                    cvButton.style.display = 'inline-block';
+                }
+                if (loadingIndicator) {
+                    loadingIndicator.style.display = 'none';
+                }
+                fetchAndRenderProjects((projects) => {
+                    renderFeaturedProjects(projects);
+                });
+            });
+    } else {
+        if (cvButton) {
+            cvButton.style.display = 'inline-block';
+        }
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+        }
+        highlightedIds = highlightParam ? highlightParam.split(",") : [];
+        fetchAndRenderProjects((projects) => {
+            renderRegularProjects(projects);
+            renderFeaturedProjects(projects);
+        });
+    }
 });
 
-function parseCSV(csvText) {
-    const lines = csvText.trim().split("\n");
-
-    const headers = lines[0].split(",").map(h => h.trim());
-
-    const data = lines.slice(1).map(line => {
-        const values = [];
-        let value = '';
-        let inQuotes = false;
-
-        for (let i = 0; i < line.length; i++) {
-            const char = line[i];
-            if (char === '"' && line[i + 1] === '"') {
-                value += '"';
-                i++; // skip the escaped quote
-            } else if (char === '"') {
-                inQuotes = !inQuotes;
-            } else if (char === ',' && !inQuotes) {
-                values.push(value.trim());
-                value = '';
-            } else {
-                value += char;
-            }
+function fetchAndRenderProjects(onCompleted) {
+    if (cachedProjects) {
+        console.log("cachedProjects != null");
+        if (typeof onCompleted === "function") {
+            onCompleted(cachedProjects);
         }
-        values.push(value.trim());
+    } else {
+        console.log("cachedProjects == null");
+        fetch("assets/data/projects.csv")
+            .then(res => res.text())
+            .then(csvText => {
+                cachedProjects = parseCSV(csvText);
+                if (typeof onCompleted === "function") {
+                    onCompleted(cachedProjects);
+                }
+            })
+            .catch(err => console.error("Lỗi tải CSV:", err));
+    }
 
-        const obj = {};
-        headers.forEach((header, i) => {
-            obj[header] = values[i]?.replace(/^"|"$/g, '').trim(); // remove leading/trailing quotes
-        });
-        return obj;
-    });
-
-    return data;
 }
 
-function parseCSVLine(line) {
-    const regex = /("([^"]|"")*"|[^",\s]+)(?=\s*,|\s*$)/g;
-    const matches = [...line.matchAll(regex)].map(match => {
-        let val = match[0].trim();
-        if (val.startsWith('"') && val.endsWith('"')) {
-            val = val.slice(1, -1).replace(/""/g, '"'); // Escape dấu "
-        }
-        return val;
+function renderFeaturedProjects(projects) {
+    const featuredContainer = document.querySelector(".featured-gallery");
+    if (!featuredContainer) return;
+
+    const loadingIndicator = document.getElementById('featured-loading');
+    if (loadingIndicator) {
+        loadingIndicator.style.display = 'none'; // Ẩn khi đã load xong
+    }
+
+    featuredContainer.innerHTML = "";
+
+    let featuredProjects = [];
+
+    if (highlightedIds.length > 0) {
+        featuredProjects = highlightedIds
+            .map(icon => projects.find(p => p.Icon === icon))
+            .filter(p => p);
+    } else {
+        featuredProjects = projects
+            .filter(p => p.IsHighlight && !isNaN(parseInt(p.IsHighlight)))
+            .sort((a, b) => parseInt(a.IsHighlight) - parseInt(b.IsHighlight));
+    }
+
+    featuredProjects.forEach(project => {
+        const item = createProjectItem(project);
+        featuredContainer.appendChild(item);
     });
-    return matches;
+}
+
+function renderRegularProjects(projects) {
+    const regularContainer = document.querySelector(".projects-gallery");
+    if (!regularContainer) return;
+
+    regularContainer.innerHTML = "";
+
+    projects.forEach(project => {
+        const item = createProjectItem(project);
+        regularContainer.appendChild(item);
+    });
 }
 
 function renderProjects(projects) {
@@ -64,12 +153,18 @@ function renderProjects(projects) {
     featuredContainer.innerHTML = "";
     regularContainer.innerHTML = "";
 
-    // Lọc và sắp xếp các dự án tiêu biểu
-    const featuredProjects = projects
-        .filter(p => p.IsHighlight && !isNaN(parseInt(p.IsHighlight)))
-        .sort((a, b) => parseInt(a.IsHighlight) - parseInt(b.IsHighlight));
+    let featuredProjects = [];
 
-    const regularProjects = projects.filter(p => !p.IsHighlight || parseInt(p.IsHighlight) === 0);
+    // Lọc và sắp xếp các dự án tiêu biểu
+    if (highlightedIds.length > 0) {
+        featuredProjects = highlightedIds
+            .map(icon => projects.find(p => p.Icon === icon))
+            .filter(p => p);
+    } else {
+        featuredProjects = projects
+            .filter(p => p.IsHighlight && !isNaN(parseInt(p.IsHighlight)))
+            .sort((a, b) => parseInt(a.IsHighlight) - parseInt(b.IsHighlight));
+    }
 
     // Render dự án tiêu biểu
     featuredProjects.forEach(project => {
@@ -97,8 +192,25 @@ function createProjectItem(project) {
     `;
 
     item.addEventListener("click", () => {
-        window.location.href = `game-detail.html?id=${encodeURIComponent(project.Icon)}`;
+        const queryParams = [];
+        if (cvParam) queryParams.push(`cv=${cvParam}`);
+        if (highlightParam) queryParams.push(`highlight=${highlightParam}`);
+        if (viewer) queryParams.push(`viewer=${viewer}`);
+
+        const targetUrl = `game-detail.html?id=${encodeURIComponent(project.Icon)}` +
+            (queryParams.length > 0 ? `&${queryParams.join("&")}` : "");
+
+        window.location.href = targetUrl;
     });
 
     return item;
+}
+
+function getCVParam(url) {
+    const cvMatch = url.match(/[?&]cv=([^&#]*)/);
+    let cvParam = null;
+    if (cvMatch) {
+        cvParam = cvMatch[1];
+    }
+    return cvParam
 }

@@ -42,9 +42,15 @@
 
     <!-- Projects Section Start -->
     <section class="projects" id="portfolio">
-        <h2>⭐ Featured Projects</h2>
+        <div class="featured-header">
+            <h2>⭐ Featured Projects</h2>
+            <div id="featured-loading">
+                Loading featured projects...
+                <div class="spinner"></div>
+            </div>
+        </div>
         <div class="featured-gallery"></div>
-        
+
         <h2>My Projects</h2>
         <div class="projects-gallery"></div>
     </section>
@@ -56,7 +62,16 @@
         <div class="resume-timeline">
         </div>
         <div class="resume-download">
-            <a href="assets/cv/CV_TRANXUANDAN_GameDeveloper.pdf" download>📄 Download My CV</a>
+            <!-- Spinner loading -->
+            <div id="cv-loading" style="text-align:center; font-size:16px; color:#9ca3af;">
+                Loading resume...
+                <div class="spinner" style="margin-top:10px;"></div>
+            </div>
+
+            <!-- Nút download CV -->
+            <a id="cvDownloadButton" href="assets/cv/CV_TRANXUANDAN_GameDeveloper.pdf" download style="display: none;">
+                📄 Download My CV
+            </a>
         </div>
     </section>
     <!-- Resume Section End -->
@@ -69,7 +84,6 @@
                 <span id="email" class="copy-email-link" onclick="copyEmail()"></span>
             </p>
             <p><strong>Location:</strong> Ha Noi, Vietnam</p>
-            <!-- <p><strong>Available for:</strong> Remote & Freelance Projects</p> -->
         </div>
     </section>
 
@@ -87,19 +101,19 @@
 
 
     <!-- Scripts Start -->
-    
+
     <!-- Scroll Nav Bar -->
     <script src="scripts/scroll-nav.js"></script>
-    
+
     <!-- Copy Email -->
-    <script src="scripts/copy-email.js"></script>
-    
+    <script type="module" src="scripts/copy-email.js"></script>
+
     <!-- Fetch Project -->
-    <script src="scripts/fetchProjects.js"></script>
+    <script type="module" src="scripts/fetchProjects.js"></script>
 
     <!-- Fetch Resume -->
-    <script src="scripts/fetchResume.js"></script>
-    
+    <script type="module" src="scripts/fetchResume.js"></script>
+
     <!-- Scripts End -->
 </body>
 

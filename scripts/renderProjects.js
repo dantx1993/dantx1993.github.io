@@ -1,3 +1,5 @@
+import { parseCSV } from './js/csvUtils.js';
+
 document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const gameId = params.get("id");
@@ -18,39 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.innerHTML = "<h2 style='text-align:center; color:white'>Failed to load game data</h2>";
         });
 });
-
-function parseCSV(csvText) {
-    const lines = csvText.trim().split("\n");
-    const headers = lines[0].split(",").map(h => h.trim());
-
-    return lines.slice(1).map(line => {
-        const values = [];
-        let value = '';
-        let inQuotes = false;
-
-        for (let i = 0; i < line.length; i++) {
-            const char = line[i];
-            if (char === '"' && line[i + 1] === '"') {
-                value += '"';
-                i++;
-            } else if (char === '"') {
-                inQuotes = !inQuotes;
-            } else if (char === ',' && !inQuotes) {
-                values.push(value.trim());
-                value = '';
-            } else {
-                value += char;
-            }
-        }
-        values.push(value.trim());
-
-        const obj = {};
-        headers.forEach((header, i) => {
-            obj[header] = values[i]?.replace(/^"|"$/g, '').trim();
-        });
-        return obj;
-    });
-}
 
 function renderDetail(game) {
     document.getElementById("gameTitle").textContent = game.Title;
@@ -80,9 +49,9 @@ function renderDetail(game) {
         <p><strong>Responsibilities:</strong></p>
         <ul class="responsibility-list">
             ${(game.Responsibilities || "")
-                .split("|")
-                .map(task => `<li>${task.trim()}</li>`)
-                .join("")}
+            .split("|")
+            .map(task => `<li>${task.trim()}</li>`)
+            .join("")}
         </ul>
     `;
     document.getElementById("infoContent").innerHTML = infoHtml;
